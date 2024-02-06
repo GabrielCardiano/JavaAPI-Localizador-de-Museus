@@ -51,21 +51,20 @@ public class MuseumController {
   /**
    * Gets closest museum.
    *
-   * @param lat         the lat
-   * @param lng         the lng
-   * @param max_dist_km the max dist km
+   * @param lat       the lat
+   * @param lng       the lng
+   * @param maxDistKm the max dist km
    * @return the closest museum
    */
   @GetMapping("/closest")
-  public ResponseEntity<Museum> getClosestMuseum(@RequestParam String lat, String lng,
-      String max_dist_km) {
-    Double latitude = Double.parseDouble(lat);
-    Double longitude = Double.parseDouble(lng);
-    Double distanceInKm = Double.parseDouble(max_dist_km);
+  public ResponseEntity<Museum> getClosestMuseum(
+      @RequestParam Double lat,
+      @RequestParam Double lng,
+      @RequestParam("max_dist_km") Double maxDistKm) {
 
-    Coordinate coordinate = new Coordinate(latitude, longitude);
+    Coordinate coordinate = new Coordinate(lat, lng);
 
     return ResponseEntity.status(HttpStatus.OK)
-        .body(service.getClosestMuseum(coordinate, distanceInKm));
+        .body(service.getClosestMuseum(coordinate, maxDistKm));
   }
 }
